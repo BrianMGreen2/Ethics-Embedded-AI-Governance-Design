@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ethics-Embedded AI Governance: Design Checklist and Vocabulary | Health-Vision.AI</title>
+<meta name="description" content="A practical design checklist and governance vocabulary for evaluating AI systems in health professions education.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#241C42;--ink-2:#332A5C;--paper:#F3F0FA;--paper-2:#E7E1F5;--accent:#735BAF;--peri:#A9A6E6;--peri-lt:#C3C0F0;--line:#CBC2E4;--line-ink:#463C6E;--muted:#6E6690;--white:#FDFCFF;
+--serif:'Fraunces',Georgia,serif;--sans:'Archivo',Arial,sans-serif;--mono:'IBM Plex Mono',Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+/* Hero */
+header.hero{background:var(--ink);color:var(--paper);position:relative;overflow:hidden;padding:72px 0 140px}
+header.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(169,166,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(169,166,230,.09) 1px,transparent 1px);background-size:56px 56px;pointer-events:none}
+.hero .wrap{position:relative}
+.kicker{width:72px;height:6px;background:var(--accent);border-radius:3px;margin-bottom:28px}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(36px,5.4vw,64px);line-height:1.05;letter-spacing:-.01em;margin:0 0 20px;max-width:16ch}
+.hero p.sub{color:var(--peri-lt);font-size:19px;max-width:60ch;margin:0 0 8px}
+.hero p.event{color:var(--peri);font-size:15px;margin:0}
+/* Portable test */
+.test{position:relative;margin-top:-96px;background:var(--white);border:1px solid var(--line);border-radius:20px;padding:36px 40px;box-shadow:0 18px 40px -24px rgba(36,28,66,.45)}
+.test h2{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.2;margin:0 0 6px}
+.test p.lead{margin:0 0 24px;color:var(--muted);max-width:62ch}
+.test ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;counter-reset:q}
+.test li{counter-increment:q;font-family:var(--serif);font-size:21px;line-height:1.35;padding-top:16px;border-top:2px solid var(--accent)}
+.test li::before{content:"Question " counter(q);display:block;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--accent);margin-bottom:8px}
+.test p.verdict{margin:26px 0 0;font-weight:600}
+/* Layout */
+main{padding:72px 0 40px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.section-head h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,3.6vw,42px);line-height:1.1;margin:0}
+.section-head p{margin:8px 0 0;color:var(--muted);max-width:62ch}
+.tools{display:flex;gap:10px;flex-wrap:wrap}
+button{font:600 15px var(--sans);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;cursor:pointer}
+button:hover{border-color:var(--accent);color:var(--accent)}
+button.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+button.primary:hover{background:var(--ink-2);color:var(--paper)}
+.checklist{display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start}
+nav.progress{position:sticky;top:24px;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px}
+.overall{font-family:var(--serif);font-size:34px;line-height:1;margin:0}
+.overall-label{color:var(--muted);font-size:14px;margin:6px 0 16px}
+nav.progress ol{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+nav.progress a{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:baseline;text-decoration:none;color:var(--ink);font-size:14.5px;line-height:1.3}
+nav.progress a:hover .nav-name{color:var(--accent)}
+.nav-num{font-family:var(--serif);color:var(--accent);font-weight:600}
+.nav-count{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.nav-bar{display:block;height:4px;background:var(--paper-2);border-radius:2px;margin:6px 0 0 30px;overflow:hidden}
+.nav-bar span{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
+.stages{position:relative}
+.stages::before{content:"";position:absolute;left:27px;top:12px;bottom:12px;width:2px;background:var(--line)}
+.stage{position:relative;display:grid;grid-template-columns:56px 1fr;gap:24px;padding-bottom:40px}
+.stage-num{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;background:var(--paper);border:2px solid var(--accent);display:grid;place-items:center;font-family:var(--serif);font-size:24px;font-weight:600;color:var(--accent)}
+.stage.done .stage-num{background:var(--accent);color:var(--paper)}
+.stage h3{font-family:var(--serif);font-weight:500;font-size:26px;line-height:1.2;margin:10px 0 14px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.stage-count{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--muted)}
+ul.checks{list-style:none;margin:0;padding:0;background:var(--white);border:1px solid var(--line);border-radius:14px}
+ul.checks li+li{border-top:1px solid var(--paper-2)}
+ul.checks label{display:grid;grid-template-columns:24px 1fr;gap:14px;padding:14px 18px;cursor:pointer;align-items:start}
+ul.checks input{position:absolute;opacity:0;width:1px;height:1px}
+.box{width:22px;height:22px;margin-top:2px;border:2px solid var(--peri);border-radius:6px;display:grid;place-items:center;transition:background .15s,border-color .15s}
+.box::after{content:"";width:6px;height:11px;border:solid var(--paper);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px);opacity:0}
+input:checked+.box{background:var(--accent);border-color:var(--accent)}
+input:checked+.box::after{opacity:1}
+input:focus-visible+.box{outline:3px solid var(--accent);outline-offset:3px}
+input:checked~.txt{color:var(--muted)}
+/* Vocabulary */
+.vocab{margin-top:56px;padding-top:56px;border-top:1px solid var(--line)}
+.search{position:relative;min-width:min(340px,100%)}
+.search input{width:100%;font:16px var(--sans);color:var(--ink);background:var(--white);border:1.5px solid var(--line);border-radius:999px;padding:11px 18px}
+.search input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--paper-2)}
+dl.terms{margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px}
+.term{padding:20px 0;border-top:1px solid var(--line);break-inside:avoid}
+.term dt{font-family:var(--serif);font-weight:600;font-size:20px;line-height:1.25;margin-bottom:6px}
+.term dd{margin:0;max-width:60ch}
+.term[hidden]{display:none}
+.empty{display:none;padding:24px 0;color:var(--muted)}
+.empty.show{display:block}
+.match-count{color:var(--muted);font-size:14px;margin:0 0 4px}
+ 
+/* Best practices */
+.practices{margin-top:56px;padding-top:56px;border-top:1px solid var(--line)}
+.bp-group{margin-top:36px}
+.bp-group h3{font-family:var(--serif);font-weight:500;font-size:26px;line-height:1.2;margin:0 0 4px}
+.bp-lead{margin:0 0 18px;color:var(--muted);max-width:62ch}
+.bp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.bp{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;display:flex;flex-direction:column;gap:10px;break-inside:avoid}
+.bp h4{font-family:var(--serif);font-weight:600;font-size:20px;line-height:1.25;margin:0}
+.bp p{margin:0;font-size:16px}
+.bp .bp-tag{margin-top:auto;padding-top:10px;border-top:1px solid var(--paper-2);font-size:14px;color:var(--accent);font-weight:600}
+.bp .bp-tag span{color:var(--muted);font-weight:500}
+.bp-group+.bp-group .bp{background:var(--paper-2);border-color:var(--paper-2)}
+.closing{margin:40px 0 0;font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);line-height:1.3;max-width:44ch}
+@media (max-width:900px){.bp-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.bp-grid{grid-template-columns:1fr}}
+@media print{.practices{break-before:page} .bp-grid{grid-template-columns:1fr 1fr}}
+footer{background:var(--ink);color:var(--peri);font-size:14px;margin-top:72px;padding:36px 0 calc(36px + env(safe-area-inset-bottom))}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--peri-lt)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:900px){
+ .test ol{grid-template-columns:1fr;gap:20px}
+ .checklist{grid-template-columns:1fr}
+ nav.progress{position:static}
+ dl.terms{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+ .wrap{padding:0 18px} .test{padding:26px 22px}
+ .stage{grid-template-columns:40px 1fr;gap:14px} .stage-num{width:40px;height:40px;font-size:18px} .stages::before{left:19px}
+ .stage h3{font-size:22px;margin-top:4px}
+}
+@media print{
+ body{background:#fff;font-size:11pt}
+ header.hero{background:#fff;color:var(--ink);padding:0 0 12pt} header.hero::before,.kicker{display:none}
+ .hero p.sub,.hero p.event{color:var(--ink-2)}
+ .test{margin-top:12pt;box-shadow:none}
+ nav.progress,.tools,.search,.match-count,footer a{display:none}
+ .checklist{grid-template-columns:1fr}
+ .stage{break-inside:avoid} .stages::before{display:none}
+ footer{background:#fff;color:var(--ink);margin-top:12pt}
+ .vocab{break-before:page}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="wrap">
+<div class="kicker" aria-hidden="true"></div>
+<h1>Ethics-Embedded AI Governance: Design Checklist and Vocabulary</h1>
+<p class="sub">Use this checklist to evaluate any AI system in health professions education, whether you are building it, buying it, or already teaching with it, then put it into practice with individual and institutional best practices.</p>
+<p class="event">Companion to the plenary at Intelligent Teaching: AI in Health Professions Education, Thomas Jefferson University, October 6 to 7, 2026. Presented by Brian M. Green, Health-Vision.AI.</p>
+</div>
+</header>
+ 
+<div class="wrap">
+<section class="test" aria-labelledby="test-h">
+<h2 id="test-h">Five minutes? Start with the portable test.</h2>
+<p class="lead">Ask these three questions of any AI tool or vendor.</p>
+<ol>
+<li>Where is intent classified, and what happens when it is wrong?</li>
+<li>Can any output reach a learner without passing an ethics or safety check first?</li>
+<li>Who can see what, and what is deliberately withheld?</li>
+</ol>
+<p class="verdict">A system that cannot answer all three clearly has ethics applied on top of it, not built into it.</p>
+</section>
+</div>
+ 
+<main class="wrap">
+<section aria-labelledby="checklist-h">
+<div class="section-head">
+<div><h2 id="checklist-h">Practical design checklist</h2>
+<p>The stages follow a governed AI pipeline in order, from the moment a learner's request arrives to the audit trail it leaves behind. Each item should have a clear yes. A no, or an “I don't know,” marks a governance gap worth raising with your team or vendor.</p></div>
+<div class="tools"><button type="button" class="primary" id="print">Print checklist</button><button type="button" id="clear">Clear all checks</button></div>
+</div>
+<div class="checklist">
+<nav class="progress" aria-label="Checklist progress">
+<p class="overall"><span id="overall">0</span> of 39</p>
+<p class="overall-label">items confirmed</p>
+<ol><li><a href="#stage-1"><span class="nav-num">1</span><span class="nav-name">Intent classification</span><span class="nav-count" data-count="1">0/5</span></a><span class="nav-bar"><span data-bar="1"></span></span></li><li><a href="#stage-2"><span class="nav-num">2</span><span class="nav-name">Entity extraction</span><span class="nav-count" data-count="2">0/6</span></a><span class="nav-bar"><span data-bar="2"></span></span></li><li><a href="#stage-3"><span class="nav-num">3</span><span class="nav-name">Knowledge hierarchy</span><span class="nav-count" data-count="3">0/4</span></a><span class="nav-bar"><span data-bar="3"></span></span></li><li><a href="#stage-4"><span class="nav-num">4</span><span class="nav-name">Risk scoring and guardrails</span><span class="nav-count" data-count="4">0/6</span></a><span class="nav-bar"><span data-bar="4"></span></span></li><li><a href="#stage-5"><span class="nav-num">5</span><span class="nav-name">Human-in-the-loop</span><span class="nav-count" data-count="5">0/3</span></a><span class="nav-bar"><span data-bar="5"></span></span></li><li><a href="#stage-6"><span class="nav-num">6</span><span class="nav-name">Coaching and assessment</span><span class="nav-count" data-count="6">0/4</span></a><span class="nav-bar"><span data-bar="6"></span></span></li><li><a href="#stage-7"><span class="nav-num">7</span><span class="nav-name">Transparency and audit</span><span class="nav-count" data-count="7">0/6</span></a><span class="nav-bar"><span data-bar="7"></span></span></li><li><a href="#stage-8"><span class="nav-num">8</span><span class="nav-name">Ongoing governance</span><span class="nav-count" data-count="8">0/5</span></a><span class="nav-bar"><span data-bar="8"></span></span></li></ol>
+</nav>
+<div class="stages"><section class="stage" id="stage-1" aria-labelledby="h-stage-1">
+<div class="stage-num" aria-hidden="true">1</div>
+<div class="stage-body"><h3 id="h-stage-1">Intent classification <span class="stage-count" data-count="1">0 of 5</span></h3>
+<ul class="checks"><li><label><input type="checkbox" data-stage="1" data-id="c1"><span class="box" aria-hidden="true"></span><span class="txt">The system classifies what a learner is trying to do before it generates any response.</span></label></li><li><label><input type="checkbox" data-stage="1" data-id="c2"><span class="box" aria-hidden="true"></span><span class="txt">Intents map to a defined taxonomy, and each intent carries a risk tier.</span></label></li><li><label><input type="checkbox" data-stage="1" data-id="c3"><span class="box" aria-hidden="true"></span><span class="txt">Coaching requests (HOW do I communicate or reason?) are distinguished from decision requests (WHAT should I do?), using meaning rather than keywords.</span></label></li><li><label><input type="checkbox" data-stage="1" data-id="c4"><span class="box" aria-hidden="true"></span><span class="txt">Out-of-scope requests, such as diagnosis or treatment decisions about a real patient, are declined with a redirect to an appropriate learning activity.</span></label></li><li><label><input type="checkbox" data-stage="1" data-id="c5"><span class="box" aria-hidden="true"></span><span class="txt">When intents overlap, the system has a stated rule for which one governs.</span></label></li></ul></div></section><section class="stage" id="stage-2" aria-labelledby="h-stage-2">
+<div class="stage-num" aria-hidden="true">2</div>
+<div class="stage-body"><h3 id="h-stage-2">Entity extraction <span class="stage-count" data-count="2">0 of 6</span></h3>
+<ul class="checks"><li><label><input type="checkbox" data-stage="2" data-id="c6"><span class="box" aria-hidden="true"></span><span class="txt">Protected health information is detected and blocked before any other processing.</span></label></li><li><label><input type="checkbox" data-stage="2" data-id="c7"><span class="box" aria-hidden="true"></span><span class="txt">Exact ages, dates, names, and locations are converted to categories or tokens.</span></label></li><li><label><input type="checkbox" data-stage="2" data-id="c8"><span class="box" aria-hidden="true"></span><span class="txt">The extractor reports what the learner said; it does not infer conclusions such as capacity, diagnosis, or legal authority.</span></label></li><li><label><input type="checkbox" data-stage="2" data-id="c9"><span class="box" aria-hidden="true"></span><span class="txt">Risk is never inherited from an AI tool&#x27;s own output; the system records the source of every risk judgment.</span></label></li><li><label><input type="checkbox" data-stage="2" data-id="c10"><span class="box" aria-hidden="true"></span><span class="txt">Governance entities exist and are populated: AI involvement and its limits, bias risk, privacy scope, and human-in-the-loop requirements.</span></label></li><li><label><input type="checkbox" data-stage="2" data-id="c11"><span class="box" aria-hidden="true"></span><span class="txt">An empty governance entity is treated as a question to check, not as a safe default.</span></label></li></ul></div></section><section class="stage" id="stage-3" aria-labelledby="h-stage-3">
+<div class="stage-num" aria-hidden="true">3</div>
+<div class="stage-body"><h3 id="h-stage-3">Knowledge hierarchy <span class="stage-count" data-count="3">0 of 4</span></h3>
+<ul class="checks"><li><label><input type="checkbox" data-stage="3" data-id="c12"><span class="box" aria-hidden="true"></span><span class="txt">Ethics and governance checks run before contextual reasoning and coaching, not after.</span></label></li><li><label><input type="checkbox" data-stage="3" data-id="c13"><span class="box" aria-hidden="true"></span><span class="txt">Guardrails and safety logic sit between reasoning and any output the learner sees.</span></label></li><li><label><input type="checkbox" data-stage="3" data-id="c14"><span class="box" aria-hidden="true"></span><span class="txt">Each layer must be satisfied before the response moves to the next.</span></label></li><li><label><input type="checkbox" data-stage="3" data-id="c15"><span class="box" aria-hidden="true"></span><span class="txt">You can name which layer would have caught a given failure, and why it did not.</span></label></li></ul></div></section><section class="stage" id="stage-4" aria-labelledby="h-stage-4">
+<div class="stage-num" aria-hidden="true">4</div>
+<div class="stage-body"><h3 id="h-stage-4">Risk scoring and guardrails <span class="stage-count" data-count="4">0 of 6</span></h3>
+<ul class="checks"><li><label><input type="checkbox" data-stage="4" data-id="c16"><span class="box" aria-hidden="true"></span><span class="txt">Risk is scored on explicit dimensions: clinical consequence, learner autonomy, data sensitivity, and output reversibility.</span></label></li><li><label><input type="checkbox" data-stage="4" data-id="c17"><span class="box" aria-hidden="true"></span><span class="txt">The risk tier determines which guardrails activate and how strongly.</span></label></li><li><label><input type="checkbox" data-stage="4" data-id="c18"><span class="box" aria-hidden="true"></span><span class="txt">Uncertainty enforcement requires calibrated language whenever AI-assisted findings are discussed.</span></label></li><li><label><input type="checkbox" data-stage="4" data-id="c19"><span class="box" aria-hidden="true"></span><span class="txt">Disclosure templates prompt learners to tell patients when AI contributed and what its limits are.</span></label></li><li><label><input type="checkbox" data-stage="4" data-id="c20"><span class="box" aria-hidden="true"></span><span class="txt">Bias-awareness prompts flag assumptions based on age, language, disability, or other group characteristics.</span></label></li><li><label><input type="checkbox" data-stage="4" data-id="c21"><span class="box" aria-hidden="true"></span><span class="txt">Learners and instructors cannot bypass safety logic through prompt manipulation.</span></label></li></ul></div></section><section class="stage" id="stage-5" aria-labelledby="h-stage-5">
+<div class="stage-num" aria-hidden="true">5</div>
+<div class="stage-body"><h3 id="h-stage-5">Human-in-the-loop <span class="stage-count" data-count="5">0 of 3</span></h3>
+<ul class="checks"><li><label><input type="checkbox" data-stage="5" data-id="c22"><span class="box" aria-hidden="true"></span><span class="txt">Escalation triggers are written down: out-of-scope requests that pass initial filters, learner distress, repeated boundary testing, and confidence below threshold.</span></label></li><li><label><input type="checkbox" data-stage="5" data-id="c23"><span class="box" aria-hidden="true"></span><span class="txt">Escalations reach a named reviewer role with a defined response time.</span></label></li><li><label><input type="checkbox" data-stage="5" data-id="c24"><span class="box" aria-hidden="true"></span><span class="txt">Escalation is proportional: correctable coaching issues stay coaching opportunities, so reviewers are not flooded.</span></label></li></ul></div></section><section class="stage" id="stage-6" aria-labelledby="h-stage-6">
+<div class="stage-num" aria-hidden="true">6</div>
+<div class="stage-body"><h3 id="h-stage-6">Coaching and assessment <span class="stage-count" data-count="6">0 of 4</span></h3>
+<ul class="checks"><li><label><input type="checkbox" data-stage="6" data-id="c25"><span class="box" aria-hidden="true"></span><span class="txt">Rubrics are aligned to Entrustable Professional Activities or equivalent competency frameworks.</span></label></li><li><label><input type="checkbox" data-stage="6" data-id="c26"><span class="box" aria-hidden="true"></span><span class="txt">Rubric dimensions have been tested for perverse rewards, such as scoring reassurance when uncertainty should be disclosed, or scoring shared decision-making with the wrong person.</span></label></li><li><label><input type="checkbox" data-stage="6" data-id="c27"><span class="box" aria-hidden="true"></span><span class="txt">Personalization operates within the governance envelope and cannot loosen safety constraints.</span></label></li><li><label><input type="checkbox" data-stage="6" data-id="c28"><span class="box" aria-hidden="true"></span><span class="txt">Coaching models the professional behaviors you want learners to adopt, including disclosure and teach-back.</span></label></li></ul></div></section><section class="stage" id="stage-7" aria-labelledby="h-stage-7">
+<div class="stage-num" aria-hidden="true">7</div>
+<div class="stage-body"><h3 id="h-stage-7">Transparency and audit <span class="stage-count" data-count="7">0 of 6</span></h3>
+<ul class="checks"><li><label><input type="checkbox" data-stage="7" data-id="c29"><span class="box" aria-hidden="true"></span><span class="txt">Learners see coaching rationales, confidence indicators, and reflective prompts.</span></label></li><li><label><input type="checkbox" data-stage="7" data-id="c30"><span class="box" aria-hidden="true"></span><span class="txt">Faculty see session logs, rubric scores, intent classifications, and escalation events.</span></label></li><li><label><input type="checkbox" data-stage="7" data-id="c31"><span class="box" aria-hidden="true"></span><span class="txt">Institutional governance sees guardrail activation rates and risk-tier distributions without individual learner data.</span></label></li><li><label><input type="checkbox" data-stage="7" data-id="c32"><span class="box" aria-hidden="true"></span><span class="txt">Accreditors and regulators can access a full audit trail and decision lineage.</span></label></li><li><label><input type="checkbox" data-stage="7" data-id="c33"><span class="box" aria-hidden="true"></span><span class="txt">Prompt templates, guardrail thresholds, and override logic are deliberately withheld from everyone else.</span></label></li><li><label><input type="checkbox" data-stage="7" data-id="c34"><span class="box" aria-hidden="true"></span><span class="txt">Aggregate analytics are reported only for groups large enough to prevent re-identification.</span></label></li></ul></div></section><section class="stage" id="stage-8" aria-labelledby="h-stage-8">
+<div class="stage-num" aria-hidden="true">8</div>
+<div class="stage-body"><h3 id="h-stage-8">Ongoing governance <span class="stage-count" data-count="8">0 of 5</span></h3>
+<ul class="checks"><li><label><input type="checkbox" data-stage="8" data-id="c35"><span class="box" aria-hidden="true"></span><span class="txt">Intent classification is audited on a regular schedule against a sample of real cases.</span></label></li><li><label><input type="checkbox" data-stage="8" data-id="c36"><span class="box" aria-hidden="true"></span><span class="txt">Red-team testing probes safety boundaries before and after every significant change.</span></label></li><li><label><input type="checkbox" data-stage="8" data-id="c37"><span class="box" aria-hidden="true"></span><span class="txt">Bias and fairness checks run across demographic scenarios.</span></label></li><li><label><input type="checkbox" data-stage="8" data-id="c38"><span class="box" aria-hidden="true"></span><span class="txt">Rubric accuracy is validated against clinical expert consensus.</span></label></li><li><label><input type="checkbox" data-stage="8" data-id="c39"><span class="box" aria-hidden="true"></span><span class="txt">System changes require documented sign-off from ethics, technical, and clinical owners.</span></label></li></ul></div></section></div>
+</div>
+<p class="sr" aria-live="polite" id="live"></p>
+</section>
+ 
+<section class="practices" aria-labelledby="bp-h">
+<div class="section-head"><div><h2 id="bp-h">Best practices with the tools you already have</h2>
+<p>Most educators will not build an application like the one in the session; they will keep using institution-approved tools such as Microsoft Copilot or the AI features in Canvas. Governance as infrastructure still applies: move safeguards out of good intentions and into habits, settings, and systems that run every time, even on a busy day.</p></div></div>
+<div class="bp-group"><h3>Individual best practices</h3><p class="bp-lead">Each practice mirrors a stage of the governed pipeline in the checklist above.</p>
+<div class="bp-grid"><article class="bp"><h4>Sort the task before you prompt</h4><p>Drafting and brainstorming are low risk. Anything patient-facing, graded, or about a real case gets closer review.</p><p class="bp-tag"><span>Mirrors</span> Intent classification and risk tier</p></article><article class="bp"><h4>Save your guardrails once</h4><p>Put uncertainty, disclosure, and no-diagnosis rules into saved instructions, a shared prompt template, or a custom Copilot agent where your institution allows it, so they apply every time instead of only when you remember.</p><p class="bp-tag"><span>Mirrors</span> Ethics and guardrail layers (K2 and K5)</p></article><article class="bp"><h4>Keep identifiers out</h4><p>Use categories, not names, dates, or exact ages. Keep patient information and student records out of any tool not approved for them.</p><p class="bp-tag"><span>Mirrors</span> Entity extraction and PHI prevention</p></article><article class="bp"><h4>Run the four-failure check</h4><p>Before using any AI output, ask: did it invent a fact, inherit a label, overclaim the AI, or script a decision?</p><p class="bp-tag"><span>Mirrors</span> Post-response safety check</p></article><article class="bp"><h4>Disclose and keep the trail</h4><p>Label AI-assisted materials, and save the prompt and version behind anything you teach with.</p><p class="bp-tag"><span>Mirrors</span> Provenance and audit trail</p></article><article class="bp"><h4>Close the loop</h4><p>Report failures to your institution&#x27;s AI governance group, and teach students the three questions of the portable test.</p><p class="bp-tag"><span>Mirrors</span> Human-in-the-loop escalation</p></article></div></div>
+<div class="bp-group"><h3>Institutional best practices</h3><p class="bp-lead">Many educators sit on the committees where these decisions are made. The reports individuals file are what feed these systems.</p>
+<div class="bp-grid"><article class="bp"><h4>A tiered approved-tools list</h4><p>Which tools may be used with which kinds of data, including patient information and student records.</p><p class="bp-tag"><span>Control family</span> Policy and oversight</p></article><article class="bp"><h4>Shared, vetted guardrail templates</h4><p>Institution-built agents or instructions with disclosure and uncertainty language already in them, so faculty are not each writing their own.</p><p class="bp-tag"><span>Control family</span> LLM-specific controls</p></article><article class="bp"><h4>Governance questions in procurement</h4><p>The three portable questions, plus decision lineage, audit logs, human override tracking, and AI-specific contract terms, including business associate agreements where patient data is involved.</p><p class="bp-tag"><span>Control family</span> Transparency and auditability</p></article><article class="bp"><h4>A simple incident reporting path</h4><p>A defined way for faculty and students to flag AI failures, connected to an incident response plan.</p><p class="bp-tag"><span>Control family</span> Safety and performance</p></article><article class="bp"><h4>Monitor patterns, not people</h4><p>Role-based reporting on how AI tools behave across courses, without surveilling individual students.</p><p class="bp-tag"><span>Control family</span> Role-based access control</p></article><article class="bp"><h4>Governance as a competency</h4><p>Assess students on evaluating AI output, not just on using it.</p><p class="bp-tag"><span>Control family</span> Curriculum and assessment</p></article></div></div>
+<p class="closing">Policy is what we intend. Infrastructure is what happens every time.</p>
+</section>
+ 
+<section class="vocab" aria-labelledby="vocab-h">
+<div class="section-head">
+<div><h2 id="vocab-h">Deployable governance vocabulary</h2>
+<p>These terms give faculty, developers, vendors, and accreditors a shared language for asking precise questions about AI systems.</p></div>
+<div class="search"><label class="sr" for="filter">Filter terms</label><input id="filter" type="search" placeholder="Filter terms, for example “risk”" autocomplete="off"></div>
+</div>
+<p class="match-count" id="matches">26 terms</p>
+<dl class="terms" id="terms"><div class="term" data-text="transparency–containment paradox™ the need to expose enough process, provenance, and performance evidence to build trust, while restricting sensitive operational details to prevent misuse, boundary violations, and privacy risk. it is resolved by design decisions, not defaults."><dt>Transparency–Containment Paradox™</dt><dd>The need to expose enough process, provenance, and performance evidence to build trust, while restricting sensitive operational details to prevent misuse, boundary violations, and privacy risk. It is resolved by design decisions, not defaults.</dd></div><div class="term" data-text="governance as infrastructure ethics, safety logic, and accountability embedded in the runtime architecture that controls what a system can do, with whom, and under which conditions; contrasted with governance as policy documents applied after deployment."><dt>Governance as infrastructure</dt><dd>Ethics, safety logic, and accountability embedded in the runtime architecture that controls what a system can do, with whom, and under which conditions; contrasted with governance as policy documents applied after deployment.</dd></div><div class="term" data-text="agentic ai ai systems that plan, coordinate sub-agents, hold state, and run multi-step workflows, rather than only answering single questions."><dt>Agentic AI</dt><dd>AI systems that plan, coordinate sub-agents, hold state, and run multi-step workflows, rather than only answering single questions.</dd></div><div class="term" data-text="model risk risk that the model itself produces an inaccurate, biased, or fabricated output."><dt>Model risk</dt><dd>Risk that the model itself produces an inaccurate, biased, or fabricated output.</dd></div><div class="term" data-text="orchestration risk risk that each component works correctly, but a handoff between components routes a request to the wrong place or with the wrong constraints."><dt>Orchestration risk</dt><dd>Risk that each component works correctly, but a handoff between components routes a request to the wrong place or with the wrong constraints.</dd></div><div class="term" data-text="silent orchestration error an orchestration failure that produces plausible, well-formed output, so nothing appears broken to the learner or the reviewer."><dt>Silent orchestration error</dt><dd>An orchestration failure that produces plausible, well-formed output, so nothing appears broken to the learner or the reviewer.</dd></div><div class="term" data-text="intent taxonomy a structured classification of what learners are trying to do, with each intent assigned a domain, boundary conditions, and a risk tier."><dt>Intent taxonomy</dt><dd>A structured classification of what learners are trying to do, with each intent assigned a domain, boundary conditions, and a risk tier.</dd></div><div class="term" data-text="coaching versus decision boundary the line between requests about how to communicate or reason (in scope) and requests about what to do for a real patient (out of scope)."><dt>Coaching versus decision boundary</dt><dd>The line between requests about HOW to communicate or reason (in scope) and requests about WHAT to do for a real patient (out of scope).</dd></div><div class="term" data-text="entity extraction pulling structured information from a learner&#x27;s message, such as clinical, communication, governance, and interaction entities, while blocking identifiers."><dt>Entity extraction</dt><dd>Pulling structured information from a learner&#x27;s message, such as clinical, communication, governance, and interaction entities, while blocking identifiers.</dd></div><div class="term" data-text="governance entity an extracted field that downstream safety layers act on, such as ai limitations, bias risk, privacy scope, or human-in-the-loop requirements. if it is never populated, it cannot be governed."><dt>Governance entity</dt><dd>An extracted field that downstream safety layers act on, such as AI limitations, bias risk, privacy scope, or human-in-the-loop requirements. If it is never populated, it cannot be governed.</dd></div><div class="term" data-text="risk provenance a record of who or what judged a risk level, so auditors can confirm the system did not borrow an ai tool&#x27;s own confidence."><dt>Risk provenance</dt><dd>A record of who or what judged a risk level, so auditors can confirm the system did not borrow an AI tool&#x27;s own confidence.</dd></div><div class="term" data-text="conversational knowledge hierarchy (k1–k6) a six-layer reasoning stack: foundational knowledge, ai ethics and governance, contextual scenario, communication micro-skills, guardrails and safety, and coaching and reflection. each layer must be satisfied before the next."><dt>Conversational Knowledge Hierarchy (K1–K6)</dt><dd>A six-layer reasoning stack: Foundational Knowledge, AI Ethics and Governance, Contextual Scenario, Communication Micro-Skills, Guardrails and Safety, and Coaching and Reflection. Each layer must be satisfied before the next.</dd></div><div class="term" data-text="structurally embedded ethics ethics and guardrail checks positioned so that no output can be generated without passing them; contrasted with superficially applied ethics, such as a disclaimer added afterward."><dt>Structurally embedded ethics</dt><dd>Ethics and guardrail checks positioned so that no output can be generated without passing them; contrasted with superficially applied ethics, such as a disclaimer added afterward.</dd></div><div class="term" data-text="guardrail a runtime constraint that blocks, modifies, or redirects a system behavior, mapped to a specific failure mode."><dt>Guardrail</dt><dd>A runtime constraint that blocks, modifies, or redirects a system behavior, mapped to a specific failure mode.</dd></div><div class="term" data-text="decline logic defined verbal and system-level refusal behaviors, paired with a redirect to an appropriate learning activity."><dt>Decline logic</dt><dd>Defined verbal and system-level refusal behaviors, paired with a redirect to an appropriate learning activity.</dd></div><div class="term" data-text="risk tier a level of consequence, from low to high, that determines which guardrails activate and whether human review is required."><dt>Risk tier</dt><dd>A level of consequence, from low to high, that determines which guardrails activate and whether human review is required.</dd></div><div class="term" data-text="proportional governance oversight intensity scaled to the consequence of failure, so high-risk interactions get more scrutiny and correctable issues stay coaching opportunities."><dt>Proportional governance</dt><dd>Oversight intensity scaled to the consequence of failure, so high-risk interactions get more scrutiny and correctable issues stay coaching opportunities.</dd></div><div class="term" data-text="governance envelope the full set of constraints, guardrails, oversight, and transparency rules that apply to one use case at its risk tier."><dt>Governance envelope</dt><dd>The full set of constraints, guardrails, oversight, and transparency rules that apply to one use case at its risk tier.</dd></div><div class="term" data-text="human-in-the-loop (hitl) trigger a defined condition that routes a session to human review, such as confidence below threshold, learner distress, or repeated boundary testing."><dt>Human-in-the-loop (HITL) trigger</dt><dd>A defined condition that routes a session to human review, such as confidence below threshold, learner distress, or repeated boundary testing.</dd></div><div class="term" data-text="calibrated uncertainty language that accurately conveys what a finding can and cannot establish; for example, “low risk” rather than “no risk.”"><dt>Calibrated uncertainty</dt><dd>Language that accurately conveys what a finding can and cannot establish; for example, “low risk” rather than “no risk.”</dd></div><div class="term" data-text="role-based transparency giving each legitimate audience the evidence it needs, from learners to faculty to accreditors, while withholding operational details from adversarial actors."><dt>Role-based transparency</dt><dd>Giving each legitimate audience the evidence it needs, from learners to faculty to accreditors, while withholding operational details from adversarial actors.</dd></div><div class="term" data-text="interpretability how well people can understand a model&#x27;s internal mechanics."><dt>Interpretability</dt><dd>How well people can understand a model&#x27;s internal mechanics.</dd></div><div class="term" data-text="explainability whether a system can give a human-understandable account of why it produced a specific output."><dt>Explainability</dt><dd>Whether a system can give a human-understandable account of why it produced a specific output.</dd></div><div class="term" data-text="observability whether authorized parties can monitor a system&#x27;s behavior in operation, through logs, metrics, guardrail activations, and decision lineage."><dt>Observability</dt><dd>Whether authorized parties can monitor a system&#x27;s behavior in operation, through logs, metrics, guardrail activations, and decision lineage.</dd></div><div class="term" data-text="information authority versus decision authority the difference between permission to receive a patient&#x27;s health information, such as a hipaa authorization, and permission to make decisions on the patient&#x27;s behalf, such as an activated health care power of attorney."><dt>Information authority versus decision authority</dt><dd>The difference between permission to receive a patient&#x27;s health information, such as a HIPAA authorization, and permission to make decisions on the patient&#x27;s behalf, such as an activated health care power of attorney.</dd></div><div class="term" data-text="k-anonymity a reporting rule that suppresses any aggregate group too small to prevent re-identification; a common threshold is at least 5 cases."><dt>k-anonymity</dt><dd>A reporting rule that suppresses any aggregate group too small to prevent re-identification; a common threshold is at least 5 cases.</dd></div></dl>
+<p class="empty" id="empty">No terms match that search. Try a shorter word, or clear the filter.</p>
+</section>
+</main>
+ 
+<footer>
+<div class="wrap">
+<span>©2026, Health-Vision.AI, LLC</span>
+<span><a href="https://health-vision.ai/">health-vision.ai</a> | <a href="https://agenticvillage.net/">agenticvillage.net</a></span>
+</div>
+</footer>
+ 
+<script>
+(function(){
+ var KEY='hv-governance-checklist-v1';
+ var boxes=[].slice.call(document.querySelectorAll('ul.checks input'));
+ var saved={};
+ try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){saved={};}
+ boxes.forEach(function(b){ if(saved[b.dataset.id]) b.checked=true; });
+ function update(announce){
+  var per={},tot={},all=0;
+  boxes.forEach(function(b){var s=b.dataset.stage;tot[s]=(tot[s]||0)+1;if(b.checked){per[s]=(per[s]||0)+1;all++;}});
+  Object.keys(tot).forEach(function(s){
+   var d=per[s]||0,t=tot[s];
+   document.querySelectorAll('[data-count="'+s+'"]').forEach(function(el){el.textContent=el.classList.contains('nav-count')?d+'/'+t:d+' of '+t;});
+   var bar=document.querySelector('[data-bar="'+s+'"]'); if(bar) bar.style.width=(100*d/t)+'%';
+   document.getElementById('stage-'+s).classList.toggle('done',d===t);
+  });
+  document.getElementById('overall').textContent=all;
+  if(announce) document.getElementById('live').textContent=all+' of '+boxes.length+' items confirmed';
+ }
+ function save(){var o={};boxes.forEach(function(b){if(b.checked)o[b.dataset.id]=1;});try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}}
+ boxes.forEach(function(b){b.addEventListener('change',function(){save();update(true);});});
+ document.getElementById('clear').addEventListener('click',function(){boxes.forEach(function(b){b.checked=false;});save();update(true);});
+ document.getElementById('print').addEventListener('click',function(){window.print();});
+ update(false);
+ var input=document.getElementById('filter'),terms=[].slice.call(document.querySelectorAll('.term'));
+ input.addEventListener('input',function(){
+  var q=input.value.trim().toLowerCase(),n=0;
+  terms.forEach(function(t){var m=!q||t.dataset.text.indexOf(q)>-1;t.hidden=!m;if(m)n++;});
+  document.getElementById('matches').textContent=q?(n+' of '+terms.length+' terms'):(terms.length+' terms');
+  document.getElementById('empty').classList.toggle('show',n===0);
+ });
+})();
+</script>
+</body>
+</html>
+ 
+
+
+
+
+
+
+
+
+
+
